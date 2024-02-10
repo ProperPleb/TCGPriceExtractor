@@ -1,6 +1,7 @@
 import json
 import util
 import config
+import re
 
 from rest import Rest
 from card import Card
@@ -28,6 +29,7 @@ class CardManager:
         dict_list = util.excel_mapper(wb)
         card_list = []
         for entry in dict_list:
+            self.sanitize(entry)
             card_list.append(Card(**entry))
         self.deck = tuple(card_list)
 
@@ -118,3 +120,22 @@ class CardManager:
         wb = Workbook()
         wb = util.write_to_workbook(wb, self.deck)
         wb.save(self.file_path + file)
+
+    def sanitize(self, entry: dict):
+        print(entry)
+        quantity = entry["quantity"]
+        if quantity is None or quantity < 1 or not isinstance(quantity, int):
+            entry["quantity"] = 1
+
+        name = entry["name"].strip()
+        name = re.sub(r'[^A-Za-z0-9 ]+', '', name)
+        name = re.sub(r' +', ' ', name)
+        entry["name"] = name
+
+        condition = entry["condition"]
+        if condition is None or condition not in self.CARD_CONDITION_MAP.keys():
+            entry["condition"] = "LP"
+
+        edition = entry["edition"]
+        if edition is None or edition not in self.CARD_EDITION_MAP.keys():
+            entry["edition"] = "U"
