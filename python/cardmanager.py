@@ -18,6 +18,16 @@ class CardManager:
                         "U": "Unlimited",
                         "L": "Limited"}
 
+    CARD_RARITY_MAP = {"C": "Common / Short Print",
+                       "R": "Rare",
+                       "SP": "Super Rare",
+                       "UR": "Ultra Rare",
+                       "SEP": "Secret Rare",
+                       "UTR": "Ultimate Rare",
+                       "CR": "Collector's Rare",
+                       "QR": "Quarter Century Secret Rare",
+                       "STR": "Starlight Rare"}
+
     def __init__(self, file_path: str = None, file_name: str = None, rest: Rest = None, deck: tuple = None):
         self.file_path = file_path if file_path is not None else config.DEFAULT_PATH
         self.file_name = file_name if file_name is not None else 'catalog.xlsx'
@@ -62,12 +72,15 @@ class CardManager:
         if listing_response.ok:
             listing_response = listing_response.json()['results'][0]['results']
             for listing in listing_response:
-                if not listing['directSeller']:
+                if listing['directInventory'] == 0 or not listing['directSeller']:
                     if listing['sellerShippingPrice'] != 0:
                         card.price = listing['price'] + listing['sellerShippingPrice']
                     else:
                         card.price = listing['price']
                     break
+
+        if card.price is None:
+            card.price = 0.0
 
         return card.price
 
@@ -75,6 +88,8 @@ class CardManager:
         fail_safe = 0
         check_next_page = True
         search_request = util.create_request("search")
+        if card.rarity is not None:
+            search_request["filters"]["term"]["rarityName"] = [self.CARD_RARITY_MAP[card.rarity]]
         size = int(search_request["size"])
         page = 0
         count = 0
@@ -109,8 +124,10 @@ class CardManager:
                         check_next_page = True
 
             if fail_safe > 4:
+                print(card)
                 break
 
+        print(card)
         print(fail_safe)
         print(page)
         return None
@@ -122,7 +139,6 @@ class CardManager:
         wb.save(self.file_path + file)
 
     def sanitize(self, entry: dict):
-        print(entry)
         quantity = entry["quantity"]
         if quantity is None or quantity < 1 or not isinstance(quantity, int):
             entry["quantity"] = 1
@@ -139,3 +155,7 @@ class CardManager:
         edition = entry["edition"]
         if edition is None or edition not in self.CARD_EDITION_MAP.keys():
             entry["edition"] = "U"
+
+        rarity = entry["rarity"]
+        if rarity is not None and rarity not in self.CARD_RARITY_MAP.keys():
+            entry["rarity"] = None
