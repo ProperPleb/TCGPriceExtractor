@@ -18,3 +18,5 @@ Accepts an excel with the below table headers as input from /resources and outpu
 | Condition:    | (OPTIONAL) DEFAULT: "LP". Condition the card is in. Acceptable inputs; "NM", "LP", "MP", "HP" for "Near Mint", "Lightly Played", "Moderately Played" and "Heavily Played" respectively.|
 | Edition:      | (OPTIONAL) DEFAULT: "U". Edition the card is in. Acceptable inputs: "F", "L", "U" for "1st Edition", "Limited", and "Unlimited" respectively.|
 | Dirty:        | (OPTIONAL) Flag indicating whether the card price should be recalculated. Any value other than empty or 'N' will trigger recalculation, provided there is a value in "Price" column.|
+
+config.yml not provided, as I do not have a dev key for the api and am only using publicly accessible api.
