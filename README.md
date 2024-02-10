@@ -13,7 +13,7 @@ Accepts an excel with the below table headers as input from /resources and outpu
 |:---|:---|
 | Quantity:     | Number of cards in collection |
 | Name:         | Name of card, avoid using non-alphanumeric special characters, though the app will sanitize it anyway|
-| Set Number:   | (OPTIONAL) The set the card was released. If this is left empty, will pull the cheapest copy of this card across all sets|
+| Set Number:   | The set the card was released. INCOMPLETE: If this is left empty, will pull the cheapest copy of this card across all sets|
 | Price:        | (OPTIONAL) App will calculate the price. This column is still required for internal logic. If there is a value here, and 'Dirty' column is not empty or 'N', will recalculate the price.|
 | Condition:    | (OPTIONAL) DEFAULT: "LP". Condition the card is in. Acceptable inputs; "NM", "LP", "MP", "HP" for "Near Mint", "Lightly Played", "Moderately Played" and "Heavily Played" respectively.|
 | Edition:      | (OPTIONAL) DEFAULT: "U". Edition the card is in. Acceptable inputs: "F", "L", "U" for "1st Edition", "Limited", and "Unlimited" respectively.|
