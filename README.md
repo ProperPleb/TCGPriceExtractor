@@ -1,7 +1,7 @@
 # TCGPriceExtractor
 Using public-facing api of [Unnamed TCG Website], gathers low-estimate data on prices for a trading card collection and returns total value of collection. Can also be used to craft decks. Currently only supports Yugioh cards\
 \
-Accepts an excel with the below table headers as input from /resources and outputs into "complete.xlsx"
+Accepts an excel with the below table headers as input from /resources and outputs into "complete.xlsx" 
 
 | Quantity	| Name	              | Set Number	| Price	| Condition	| Edition	| Dirty |
 |----------:|:--------------------|:------------|------:|:----------|:--------|:------|
@@ -9,7 +9,7 @@ Accepts an excel with the below table headers as input from /resources and outpu
 | 1	        | Raigeki	            | TN19-EN010  |	      | NM    	  | L       |	N     |      
 
 
-| NOTE | All columns (with headers) are required, however (OPTIONAL) fields can be left empty. |
+| NOTE | Columns can be in any order, but the headers are MANDATORY. Failing to provide table headers will cause errors. Fields labeled (OPTIONAL) below can be left empty (but the column header still needs to exist). |
 |:---|:---|
 | Quantity:     | Number of cards in collection |
 | Name:         | Name of card, avoid using non-alphanumeric special characters, though the app will sanitize it anyway|
