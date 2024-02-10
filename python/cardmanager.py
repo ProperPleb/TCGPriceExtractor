@@ -18,6 +18,16 @@ class CardManager:
                         "U": "Unlimited",
                         "L": "Limited"}
 
+    CARD_RARITY_MAP = {"C": "Common / Short Print",
+                       "R": "Rare",
+                       "SP": "Super Rare",
+                       "UR": "Ultra Rare",
+                       "SEP": "Secret Rare",
+                       "UTR": "Ultimate Rare",
+                       "CR": "Collector's Rare",
+                       "QR": "Quarter Century Secret Rare",
+                       "STR": "Starlight Rare"}
+
     def __init__(self, file_path: str = None, file_name: str = None, rest: Rest = None, deck: tuple = None):
         self.file_path = file_path if file_path is not None else config.DEFAULT_PATH
         self.file_name = file_name if file_name is not None else 'catalog.xlsx'
@@ -75,6 +85,8 @@ class CardManager:
         fail_safe = 0
         check_next_page = True
         search_request = util.create_request("search")
+        if card.rarity is not None:
+            search_request["filters"]["term"]["rarityName"] = self.CARD_RARITY_MAP[card.rarity]
         size = int(search_request["size"])
         page = 0
         count = 0
@@ -139,3 +151,7 @@ class CardManager:
         edition = entry["edition"]
         if edition is None or edition not in self.CARD_EDITION_MAP.keys():
             entry["edition"] = "U"
+
+        rarity = entry["rarity"]
+        if rarity is not None and rarity not in self.CARD_RARITY_MAP:
+            entry["rarity"] = None
