@@ -1,0 +1,51 @@
+{
+    "algorithm": "sales_exp_fields_experiment",
+    "from": 0,
+    "size": 24,
+    "filters": {
+        "term": {
+            "productLineName": [
+                "yugioh"
+            ]
+        },
+        "range": {},
+        "match": {}
+    },
+    "listingSearch": {
+        "context": {
+            "cart": {}
+        },
+        "filters": {
+            "term": {
+                "sellerStatus": "Live",
+                "channelId": 0,
+                "language": [
+                    "English"
+                ]
+            },
+            "range": {
+                "quantity": {
+                    "gte": 1
+                }
+            },
+            "exclude": {
+                "channelExclusion": 0
+            }
+        }
+    },
+    "context": {
+        "cart": {},
+        "shippingCountry": "US",
+        "userProfile": {
+            "productLineAffinity": null
+        }
+    },
+    "settings": {
+        "useFuzzySearch": true,
+        "didYouMean": {}
+    },
+    "sort": {
+        "field": "market-price",
+        "order": "desc"
+    }
+}

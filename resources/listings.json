@@ -1,0 +1,41 @@
+{
+    "filters": {
+        "term": {
+            "sellerStatus": "Live",
+            "channelId": 0,
+            "condition": [
+
+            ],
+            "printing": [
+
+            ],
+            "language": [
+                "English"
+            ],
+            "listingType": [
+                "standard"
+            ]
+        },
+        "range": {
+            "quantity": {
+                "gte": 1
+            }
+        },
+        "exclude": {
+            "channelExclusion": 0
+        }
+    },
+    "from": 0,
+    "size": 25,
+    "sort": {
+        "field": "price+shipping",
+        "order": "asc"
+    },
+    "context": {
+        "shippingCountry": "US",
+        "cart": {}
+    },
+    "aggregations": [
+        "listingType"
+    ]
+}
