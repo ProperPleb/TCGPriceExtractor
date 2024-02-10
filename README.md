@@ -27,5 +27,6 @@ Accepts an excel with the below table headers as input from /resources and outpu
 ||"UTR": "Ultimate Rare"  |
 ||"CR": "Collector's Rare"  |
 ||"QR": "Quarter Century Secret Rare" |
+||"STR": "Starlight Rare"  |
 
 config.yml not provided, as I do not have a dev key for the api and am only using publicly accessible api.
