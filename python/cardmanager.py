@@ -72,12 +72,15 @@ class CardManager:
         if listing_response.ok:
             listing_response = listing_response.json()['results'][0]['results']
             for listing in listing_response:
-                if not listing['directSeller']:
+                if listing['directInventory'] == 0 or not listing['directSeller']:
                     if listing['sellerShippingPrice'] != 0:
                         card.price = listing['price'] + listing['sellerShippingPrice']
                     else:
                         card.price = listing['price']
                     break
+
+        if card.price is None:
+            card.price = 0.0
 
         return card.price
 
@@ -86,7 +89,7 @@ class CardManager:
         check_next_page = True
         search_request = util.create_request("search")
         if card.rarity is not None:
-            search_request["filters"]["term"]["rarityName"] = self.CARD_RARITY_MAP[card.rarity]
+            search_request["filters"]["term"]["rarityName"] = [self.CARD_RARITY_MAP[card.rarity]]
         size = int(search_request["size"])
         page = 0
         count = 0
@@ -121,8 +124,10 @@ class CardManager:
                         check_next_page = True
 
             if fail_safe > 4:
+                print(card)
                 break
 
+        print(card)
         print(fail_safe)
         print(page)
         return None
@@ -134,7 +139,6 @@ class CardManager:
         wb.save(self.file_path + file)
 
     def sanitize(self, entry: dict):
-        print(entry)
         quantity = entry["quantity"]
         if quantity is None or quantity < 1 or not isinstance(quantity, int):
             entry["quantity"] = 1
@@ -153,5 +157,5 @@ class CardManager:
             entry["edition"] = "U"
 
         rarity = entry["rarity"]
-        if rarity is not None and rarity not in self.CARD_RARITY_MAP:
+        if rarity is not None and rarity not in self.CARD_RARITY_MAP.keys():
             entry["rarity"] = None

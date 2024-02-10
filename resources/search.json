@@ -44,8 +44,5 @@
         "useFuzzySearch": true,
         "didYouMean": {}
     },
-    "sort": {
-        "field": "market-price",
-        "order": "desc"
-    }
+    "sort": {}
 }

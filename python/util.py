@@ -44,7 +44,6 @@ def excel_mapper(wb: Workbook, column_names: list = None, table_offset_row: int 
         elif table_offset_col is not None and table_offset_col >= 0:
             roc["col"] = table_offset_col
         offset = calculate_offset(sheet, max_row, max_col, table_width, roc)
-
     first_cell = sheet['A1'].offset(offset["row"], offset["col"])
     for i in range(max_row - offset["row"]):
         current_cell = first_cell.offset(i, 0)
@@ -80,6 +79,7 @@ def calculate_offset(sheet, max_row: int = None, max_col: int = None, table_widt
                 col_offset += 1
                 cell = cell.offset(0, 1)
             else:
+                row_offset = 0
                 is_empty = False
                 break
     else:
