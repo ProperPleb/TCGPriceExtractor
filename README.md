@@ -17,7 +17,7 @@ Accepts an excel with the below table headers as input from /resources and outpu
 | Price:        | (OPTIONAL) App will calculate the price. This column is still required for internal logic. If there is a value here, and 'Dirty' column is not empty or 'N', will recalculate the price.|
 | Condition:    | (OPTIONAL) DEFAULT: "LP". Condition the card is in. Acceptable inputs; "NM", "LP", "MP", "HP" for "Near Mint", "Lightly Played", "Moderately Played" and "Heavily Played" respectively.|
 | Edition:      | (OPTIONAL) DEFAULT: "U". Edition the card is in. Acceptable inputs: "F", "L", "U" for "1st Edition", "Limited", and "Unlimited" respectively.|
-| Dirty:        | (OPTIONAL) Flag indicating whether the card price should be recalculated. Any value other than empty or 'N' will trigger recalculation, provided there is a value in "Price" column.|
+| Dirty:        | (OPTIONAL) Flag indicating whether the card price should be recalculated. Any value other than empty or 'N' will trigger recalculation. Can be left empty if there is no value in 'Price' column.|
 | Rarity:       | (OPTIONAL) Some cards have multiple rarities in the same set. Use this to narrow the results to your specific rarity. Supported rarities:  |
 ||"C": "Common / Short Print"  |
 ||"R": "Rare"  |
